@@ -12,7 +12,7 @@ loadEventListeners();
 // Load all event listeners
 function loadEventListeners(){
   // DOM load event
-  document.addEventListener('DOMContentLoaded', getTask);
+  document.addEventListener('DOMContentLoaded', getTasks);
   // add task event
   form.addEventListener('submit', addTask);
   // remove task event
@@ -24,7 +24,7 @@ function loadEventListeners(){
 }
 
 // Get Task from LS
-function getTask(){
+function getTasks(){
   let tasks;
   if(localStorage.getItem('tasks') === null){
     tasks = [];
@@ -73,7 +73,7 @@ function addTask(e) {
   // add link class
     link.className = 'delete-item secondary-content'; 
   // add icon html to link
-    link.innerHTML = '<i class="fa fa-remove">';
+    link.innerHTML = '<i class="fa fa-remove"></i>';
   // Append the link to li
     li.appendChild(link);
 
@@ -87,6 +87,21 @@ function addTask(e) {
   taskInput.value = '';
 
   e.preventDefault();
+
+}
+
+// Store task
+function storeTaskInLocalStorage(task) {
+  let tasks;
+  if(localStorage.getItem('tasks') === null){
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  tasks.push(task);
+
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 
 }
 
@@ -121,7 +136,7 @@ function removeTaskFromLocalStorage(taskItem) {
 }
 
 // Clear task
-function clearTask(e){
+function clearTask(){
   // taskList.innerHTML = '';
 
   // Faster
@@ -134,8 +149,8 @@ function clearTask(e){
 }
 
 // Clear task from LS
-localStorage.clear();
 function clearTaskFromLocalStorange(){
+  localStorage.clear();
 }
 
 // Filter Task
@@ -153,17 +168,3 @@ function filterTask(e){
   });
 }
 
-// Store task
-function storeTaskInLocalStorage(task) {
-  let tasks;
-  if(localStorage.getItem('tasks') === null){
-    tasks = [];
-  } else {
-    tasks = JSON.parse(localStorage.getItem('tasks'));
-  }
-
-  tasks.push(task);
-
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-
-}
