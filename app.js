@@ -27,7 +27,7 @@ function loadEventListeners(){
 function getTask(){
   let tasks;
   if(localStorage.getItem('task') === null){
-    task = [];
+    tasks = [];
   } else {
     tasks = JSON.parse(localStorage.getItem('tasks'));
   }
