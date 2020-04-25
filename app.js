@@ -134,7 +134,7 @@ function clearTask(e){
 }
 
 // Clear task from LS
-localStorege.clear();
+localStorage.clear();
 function clearTaskFromLocalStorange(){
 }
 
