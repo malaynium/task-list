@@ -18,7 +18,7 @@ function loadEventListeners(){
   // remove task event
   taskList.addEventListener('click', removeTask);
   // clear task event
-  clearBtn.addEventListener('click', clearTask);
+  clearBtn.addEventListener('click', clearTasks);
   // filter event
   filter.addEventListener('keyup', filterTask);
 }
@@ -60,31 +60,34 @@ function getTasks(){
 function addTask(e) {
   if(taskInput.value === '' ) {
     alert('Add a task');
+  } else {
+
+    // create li element
+    const li = document.createElement('li');
+    // add class
+    li.className = 'collection-item';
+    // Create text node and append li
+    li.appendChild(document.createTextNode(taskInput.value));
+    // Create new link element
+      const link = document.createElement('a');
+    // add link class
+      link.className = 'delete-item secondary-content'; 
+    // add icon html to link
+      link.innerHTML = '<i class="fa fa-remove"></i>';
+    // Append the link to li
+      li.appendChild(link);
+
+    // Append the li to ul
+      taskList.appendChild(li);
+
+    // Store in Local Storage
+    storeTaskInLocalStorage(taskInput.value);  
+
+    // clear input
+    taskInput.value = '';
+
   }
 
-  // create li element
-  const li = document.createElement('li');
-  // add class
-  li.className = 'collection-item';
-  // Create text node and append li
-  li.appendChild(document.createTextNode(taskInput.value));
-  // Create new link element
-    const link = document.createElement('a');
-  // add link class
-    link.className = 'delete-item secondary-content'; 
-  // add icon html to link
-    link.innerHTML = '<i class="fa fa-remove"></i>';
-  // Append the link to li
-    li.appendChild(link);
-
-   // Append the li to ul
-    taskList.appendChild(li);
-
-  // Store in Local Storage
-  storeTaskInLocalStorage(taskInput.value);  
-
-  // clear input
-  taskInput.value = '';
 
   e.preventDefault();
 
@@ -136,7 +139,7 @@ function removeTaskFromLocalStorage(taskItem) {
 }
 
 // Clear task
-function clearTask(){
+function clearTasks(){
   // taskList.innerHTML = '';
 
   // Faster
@@ -149,7 +152,7 @@ function clearTask(){
 }
 
 // Clear task from LS
-function clearTaskFromLocalStorange(){
+function clearTasksFromLocalStorage(){
   localStorage.clear();
 }
 
